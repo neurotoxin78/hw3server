@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+{% block head %}
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<title></title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="stylesheet" href="/statics/css/425513.css" type="text/css" media="screen, projection" />
+{% endblock %}
+   <script
+   src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js">
+    </script>
+    <script>
+
+    function scrolify(tblAsJQueryObject, height){
+        var oTbl = tblAsJQueryObject;
+
+        // for very large tables you can remove the four lines below
+        // and wrap the table with <div> in the mark-up and assign
+        // height and overflow property
+        var oTblDiv = $("<div/>");
+        oTblDiv.css('height', height);
+        oTblDiv.css('overflow','scroll');
+        oTbl.wrap(oTblDiv);
+
+        // save original width
+        oTbl.attr("data-item-original-width", oTbl.width());
+        oTbl.find('thead tr td').each(function(){
+            $(this).attr("data-item-original-width",$(this).width());
+        });
+        oTbl.find('tbody tr:eq(0) td').each(function(){
+            $(this).attr("data-item-original-width",$(this).width());
+        });
+
+
+        // clone the original table
+        var newTbl = oTbl.clone();
+
+        // remove table header from original table
+        oTbl.find('thead tr').remove();
+        // remove table body from new table
+        newTbl.find('tbody tr').remove();
+
+        oTbl.parent().parent().prepend(newTbl);
+        newTbl.wrap("<div/>");
+
+        // replace ORIGINAL COLUMN width
+        newTbl.width(newTbl.attr('data-item-original-width'));
+        newTbl.find('thead tr td').each(function(){
+            $(this).width($(this).attr("data-item-original-width"));
+        });
+        oTbl.width(oTbl.attr('data-item-original-width'));
+        oTbl.find('tbody tr:eq(0) td').each(function(){
+            $(this).width($(this).attr("data-item-original-width"));
+        });
+    }
+
+    $(document).ready(function(){
+        scrolify($('#tblNeedsScrolling'), 680); // 160 is height
+    });
+
+
+    </script>
+
+
+<style type="text/css">
+<style>
+    th { text-align: center; border: 1px solid black; padding:3px; }
+    td { text-align: center; border: 1px solid #4D4D4D; padding:3px; }
+
+
+    #rowScroll { height: 100px; } /* Subtract the scrollbar height */
+    #contentScroll { height: 100px; width: 300px; }
+    #colScroll { width: 272px; } /* Subtract the scrollbar width */
+  </style>
+</style>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+<!--
+	<header id="header">
+        <div id='logo'><img src="/statics/logo.png" width="50" height="50" alt="logo"></div>
+Статистика: ПАО "Асфальтобетонный завод"
+	</header><!-- #header-->
+
+
+	<section id="middle">
+
+		<div id="container">
+			<div id="content">
+                    {% block page %}
+                        {% block content %}
+
+                            {{header|safe}}<p>
+
+{{ table|safe }}
+
+
+
+                        {% endblock %}
+                    {% endblock %}
+			</div><!-- #content-->
+		</div><!-- #container-->
+
+		<aside id="sideLeft">
+			{% block sidebar %}
+	{% block menu %}
+        <ul>
+            <li><a href="/"><strong>Главная</strong></a></li>
+            <li><a href="/bank/"><strong>Банки</strong></a></li>
+        </ul>
+
+	{% endblock %}
+
+	{% block recent %}
+	{% endblock %}
+{% endblock %}
+		</aside><!-- #sideLeft -->
+
+	</section><!-- #middle-->
+
+</div><!-- #wrapper -->
+
+<!--
+<footer id="footer">
+	{% block footer %}
+	{% block copyright %}
+    <div id="side">
+    ᴽ Neuronix Creative Solution 2013
+    </div>
+	{% endblock %}
+    {% endblock %}
+</footer>
+-->
+
+</body>
+</html>

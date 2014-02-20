@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>uForecaster&trade; 1.0.0 beta </title>
+<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/vader/jquery-ui.css" />
+<link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css' />
+<link rel="stylesheet" type="text/css" href="/statics/css/main.css" />
+
+
+
+<script type="text/javascript" language="javascript" src="/statics/jquery-ui/js/jquery-1.9.1.js"></script>
+<script type="text/javascript" language="javascript" src="/statics/jquery-ui/js/jquery-ui-1.10.3.custom.js"></script>
+
+
+
+<script>
+    (function($){
+	var _init = $.ui.dialog.prototype._init;
+
+	//Custom Dialog Init
+	$.ui.dialog.prototype._init = function() {
+		var self = this;
+                       _init.apply(this, arguments);
+
+		//custom init functionality, variables and event binding goes in here
+
+
+	};
+	$.extend($.ui.dialog.prototype, {
+		//Custom Dialog Functions go in here
+	});
+})(jQuery);
+</script>
+
+
+<script>
+  $(function() {
+    $( "#contentwrap" ).dialog({maxWidth:'auto',
+                    maxHeight: "auto",width: 'auto',
+                    height: "auto",
+                    width: 500,
+                    position: "center",
+                    minHeight: 500
+                   });
+  });
+</script>
+
+  <script>
+  $(function() {
+    $( "#dialog" ).dialog({modal: true,position: "center",width: 400,
+                    height: 180, hide: "explode",
+                    buttons: [ { text: "Ok", click: function() { $( this ).dialog( "close" ); } } ]
+
+                    });
+  });
+  </script>
+{% block dt %}
+
+
+
+{% endblock %}
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+        $(".slidingDiv").hide();
+        $(".show_hide").show();
+
+    $('.show_hide').click(function(){
+    $(".slidingDiv").slideToggle();
+    });
+
+});
+</script>
+
+
+
+
+</head>
+<body>
+<!--
+<div id="dialog" title="Basic dialog">
+  <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>
+-->
+
+
+<div id="wrapper">
+<div id="header">
+
+
+</div>
+
+        <div id="contentwrap" title="{{ title }}">
+        <div id="content">
+
+
+
+{% block page %}
+    {% block content %}
+
+        {% block date %}
+
+        {% endblock %}
+                <img src='{{url | safe }}' />
+        
+
+                {{ content| safe }}
+
+                {{header|safe}}<br>
+
+                {{ nav | safe }}
+                <br>
+
+<div class="divider-horizontal2"></div>
+<div id='inner'>
+<!--
+Путь:  {{ request.path }}
+-->
+<center>
+<a href="#" class="show_hide">Отладочные сообщения</a>
+</center>
+<div class="slidingDiv">
+Дата\Время:{{ datetime | safe}}
+<br>
+Отладка:<br>
+{{ debug | safe }}
+</div>
+        </div>
+
+    {% endblock %}
+{% endblock %}
+
+        </div>
+        </div>
+<div id="footerwrap">
+<div id="footer">
+
+        </div>
+    </div>
+
+</body>
+</html>

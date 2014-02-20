@@ -1,0 +1,5 @@
+#!/usr/bin/python2.7
+from sys import argv
+from meteo import gpioled
+led=gpioled.leds()
+led.blink5(argv[1])

@@ -1,0 +1,7 @@
+#!/usr/bin/python2.7
+from meteo import temp
+from meteo import gpioled
+led=gpioled.leds()
+led.led_on(24)
+print temp.ambitemp()
+led.blink3(24)
